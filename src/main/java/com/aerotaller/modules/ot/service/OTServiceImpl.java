@@ -119,6 +119,10 @@ public class OTServiceImpl implements OTService {
         tarea.setTecnicos(tareaRequest.getTecnicos() != null ? tareaRequest.getTecnicos().trim() : null);
         tarea.setHorasTotales(tareaRequest.getHorasTotales());
         tarea.setTipoTarea(tareaRequest.getTipoTarea() != null ? tareaRequest.getTipoTarea().trim() : null);
+        tarea.setTipoServicio(tareaRequest.getTipoServicio() != null ? tareaRequest.getTipoServicio().trim() : null);
+        tarea.setIntervalo(tareaRequest.getIntervalo() != null ? tareaRequest.getIntervalo().trim() : null);
+        tarea.setRequiereRII(tareaRequest.getRequiereRII() != null ? tareaRequest.getRequiereRII().trim() : null);
+        tarea.setParteAsociada(tareaRequest.getParteAsociada() != null ? tareaRequest.getParteAsociada().trim() : null);
         return tarea;
     }
 
@@ -130,6 +134,17 @@ public class OTServiceImpl implements OTService {
         discrepancia.setDescripcion(discrepanciaRequest.getDescripcion().trim());
         discrepancia.setEstatus(discrepanciaRequest.getEstatus() != null ? discrepanciaRequest.getEstatus().trim() : null);
         discrepancia.setAcciones(discrepanciaRequest.getAcciones() != null ? discrepanciaRequest.getAcciones().trim() : null);
+        discrepancia.setAeronavegable(discrepanciaRequest.getAeronavegable() != null ? discrepanciaRequest.getAeronavegable().trim() : null);
+        discrepancia.setAccionCorrectiva(discrepanciaRequest.getAccionCorrectiva() != null ? discrepanciaRequest.getAccionCorrectiva().trim() : null);
+        discrepancia.setEfectuadoPor(discrepanciaRequest.getEfectuadoPor() != null ? discrepanciaRequest.getEfectuadoPor().trim() : null);
+        discrepancia.setInspeccionadoPor(discrepanciaRequest.getInspeccionadoPor() != null ? discrepanciaRequest.getInspeccionadoPor().trim() : null);
+        discrepancia.setParteAsociada(discrepanciaRequest.getParteAsociada() != null ? discrepanciaRequest.getParteAsociada().trim() : null);
+        if (discrepanciaRequest.getFechaAutorizada() != null && !discrepanciaRequest.getFechaAutorizada().isEmpty()) {
+            discrepancia.setFechaAutorizada(java.time.LocalDate.parse(discrepanciaRequest.getFechaAutorizada()));
+        }
+        if (discrepanciaRequest.getFechaLiberacion() != null && !discrepanciaRequest.getFechaLiberacion().isEmpty()) {
+            discrepancia.setFechaLiberacion(java.time.LocalDate.parse(discrepanciaRequest.getFechaLiberacion()));
+        }
         return discrepancia;
     }
 
@@ -276,6 +291,10 @@ public class OTServiceImpl implements OTService {
                 dto.setTecnicos(t.getTecnicos());
                 dto.setHorasTotales(t.getHorasTotales());
                 dto.setTipoTarea(t.getTipoTarea());
+                dto.setTipoServicio(t.getTipoServicio());
+                dto.setIntervalo(t.getIntervalo());
+                dto.setRequiereRII(t.getRequiereRII());
+                dto.setParteAsociada(t.getParteAsociada());
                 return dto;
             }).toList());
         }
@@ -287,6 +306,13 @@ public class OTServiceImpl implements OTService {
                 dto.setDescripcion(d.getDescripcion());
                 dto.setEstatus(d.getEstatus());
                 dto.setAcciones(d.getAcciones());
+                dto.setAeronavegable(d.getAeronavegable());
+                dto.setFechaAutorizada(d.getFechaAutorizada() != null ? d.getFechaAutorizada().toString() : null);
+                dto.setAccionCorrectiva(d.getAccionCorrectiva());
+                dto.setFechaLiberacion(d.getFechaLiberacion() != null ? d.getFechaLiberacion().toString() : null);
+                dto.setEfectuadoPor(d.getEfectuadoPor());
+                dto.setInspeccionadoPor(d.getInspeccionadoPor());
+                dto.setParteAsociada(d.getParteAsociada());
                 return dto;
             }).toList());
         }
@@ -336,6 +362,10 @@ public class OTServiceImpl implements OTService {
                 }
 
                 tarea.setTipoTarea(tDto.getTipoTarea());
+                tarea.setTipoServicio(tDto.getTipoServicio());
+                tarea.setIntervalo(tDto.getIntervalo());
+                tarea.setRequiereRII(tDto.getRequiereRII());
+                tarea.setParteAsociada(tDto.getParteAsociada());
                 ot.agregarTarea(tarea); // Helper bidireccional de tu entidad
             });
         }
@@ -349,6 +379,17 @@ public class OTServiceImpl implements OTService {
                 discrepancia.setDescripcion(dDto.getDescripcion());
                 discrepancia.setEstatus(dDto.getEstatus());
                 discrepancia.setAcciones(dDto.getAcciones());
+                discrepancia.setAeronavegable(dDto.getAeronavegable());
+                discrepancia.setAccionCorrectiva(dDto.getAccionCorrectiva());
+                discrepancia.setEfectuadoPor(dDto.getEfectuadoPor());
+                discrepancia.setInspeccionadoPor(dDto.getInspeccionadoPor());
+                discrepancia.setParteAsociada(dDto.getParteAsociada());
+                if (dDto.getFechaAutorizada() != null && !dDto.getFechaAutorizada().isEmpty()) {
+                    discrepancia.setFechaAutorizada(java.time.LocalDate.parse(dDto.getFechaAutorizada()));
+                }
+                if (dDto.getFechaLiberacion() != null && !dDto.getFechaLiberacion().isEmpty()) {
+                    discrepancia.setFechaLiberacion(java.time.LocalDate.parse(dDto.getFechaLiberacion()));
+                }
                 ot.agregarDiscrepancia(discrepancia); // Helper bidireccional de tu entidad
             });
         }

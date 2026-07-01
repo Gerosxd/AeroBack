@@ -9,6 +9,10 @@ public class OTTareaRequest {
     private String tecnicos;
     private BigDecimal horasTotales;
     private String tipoTarea;
+    private String tipoServicio;
+    private String intervalo;
+    private String requiereRII;
+    private String parteAsociada;
 
     public OTTareaRequest() {
     }
@@ -51,5 +55,37 @@ public class OTTareaRequest {
 
     public void setTipoTarea(String tipoTarea) {
         this.tipoTarea = tipoTarea;
+    }
+
+    public String getTipoServicio() {
+        return tipoServicio;
+    }
+
+    public void setTipoServicio(String tipoServicio) {
+        this.tipoServicio = tipoServicio;
+    }
+
+    public String getIntervalo() {
+        return intervalo;
+    }
+
+    public void setIntervalo(String intervalo) {
+        this.intervalo = intervalo;
+    }
+
+    public String getRequiereRII() {
+        return requiereRII;
+    }
+
+    public void setRequiereRII(String requiereRII) {
+        this.requiereRII = requiereRII;
+    }
+
+    public String getParteAsociada() {
+        return parteAsociada;
+    }
+
+    public void setParteAsociada(String parteAsociada) {
+        this.parteAsociada = parteAsociada;
     }
 }

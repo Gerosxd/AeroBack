@@ -27,6 +27,27 @@ public class OTDiscrepancia {
     @Column(name = "Acciones", length = 255)
     private String acciones;
 
+    @Column(name = "Aeronavegable", length = 2)
+    private String aeronavegable;
+
+    @Column(name = "FechaAutorizada")
+    private java.time.LocalDate fechaAutorizada;
+
+    @Column(name = "AccionCorrectiva", length = 500)
+    private String accionCorrectiva;
+
+    @Column(name = "FechaLiberacion")
+    private java.time.LocalDate fechaLiberacion;
+
+    @Column(name = "EfectuadoPor", length = 150)
+    private String efectuadoPor;
+
+    @Column(name = "InspeccionadoPor", length = 150)
+    private String inspeccionadoPor;
+
+    @Column(name = "ParteAsociada", length = 255)
+    private String parteAsociada;
+
     public OTDiscrepancia() {
     }
 
@@ -76,5 +97,61 @@ public class OTDiscrepancia {
 
     public void setAcciones(String acciones) {
         this.acciones = acciones;
+    }
+
+    public String getAeronavegable() {
+        return aeronavegable;
+    }
+
+    public void setAeronavegable(String aeronavegable) {
+        this.aeronavegable = aeronavegable;
+    }
+
+    public java.time.LocalDate getFechaAutorizada() {
+        return fechaAutorizada;
+    }
+
+    public void setFechaAutorizada(java.time.LocalDate fechaAutorizada) {
+        this.fechaAutorizada = fechaAutorizada;
+    }
+
+    public String getAccionCorrectiva() {
+        return accionCorrectiva;
+    }
+
+    public void setAccionCorrectiva(String accionCorrectiva) {
+        this.accionCorrectiva = accionCorrectiva;
+    }
+
+    public java.time.LocalDate getFechaLiberacion() {
+        return fechaLiberacion;
+    }
+
+    public void setFechaLiberacion(java.time.LocalDate fechaLiberacion) {
+        this.fechaLiberacion = fechaLiberacion;
+    }
+
+    public String getEfectuadoPor() {
+        return efectuadoPor;
+    }
+
+    public void setEfectuadoPor(String efectuadoPor) {
+        this.efectuadoPor = efectuadoPor;
+    }
+
+    public String getInspeccionadoPor() {
+        return inspeccionadoPor;
+    }
+
+    public void setInspeccionadoPor(String inspeccionadoPor) {
+        this.inspeccionadoPor = inspeccionadoPor;
+    }
+
+    public String getParteAsociada() {
+        return parteAsociada;
+    }
+
+    public void setParteAsociada(String parteAsociada) {
+        this.parteAsociada = parteAsociada;
     }
 }
