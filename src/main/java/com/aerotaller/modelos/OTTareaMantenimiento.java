@@ -31,6 +31,18 @@ public class OTTareaMantenimiento {
     @Column(name = "TipoTarea", length = 100)
     private String tipoTarea;
 
+    @Column(name = "TipoServicio", length = 150)
+    private String tipoServicio;
+
+    @Column(name = "Intervalo", length = 150)
+    private String intervalo;
+
+    @Column(name = "RequiereRII", length = 2)
+    private String requiereRII;
+
+    @Column(name = "ParteAsociada", length = 255)
+    private String parteAsociada;
+
     public OTTareaMantenimiento() {
     }
 
@@ -88,5 +100,37 @@ public class OTTareaMantenimiento {
 
     public void setTipoTarea(String tipoTarea) {
         this.tipoTarea = tipoTarea;
+    }
+
+    public String getTipoServicio() {
+        return tipoServicio;
+    }
+
+    public void setTipoServicio(String tipoServicio) {
+        this.tipoServicio = tipoServicio;
+    }
+
+    public String getIntervalo() {
+        return intervalo;
+    }
+
+    public void setIntervalo(String intervalo) {
+        this.intervalo = intervalo;
+    }
+
+    public String getRequiereRII() {
+        return requiereRII;
+    }
+
+    public void setRequiereRII(String requiereRII) {
+        this.requiereRII = requiereRII;
+    }
+
+    public String getParteAsociada() {
+        return parteAsociada;
+    }
+
+    public void setParteAsociada(String parteAsociada) {
+        this.parteAsociada = parteAsociada;
     }
 }
