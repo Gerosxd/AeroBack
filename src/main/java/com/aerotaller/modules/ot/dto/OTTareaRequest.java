@@ -13,6 +13,13 @@ public class OTTareaRequest {
     private String intervalo;
     private String requiereRII;
     private String parteAsociada;
+    // P-03: Hoja de Servicio AG-145-04
+    private String numeroParte;
+    private String numeroSerie;
+    private String accionCorrectiva;
+    private String efectuadoPor;
+    private String inspeccionadoPor;
+    private String fechaCumplimiento;
 
     public OTTareaRequest() {
     }
@@ -88,4 +95,17 @@ public class OTTareaRequest {
     public void setParteAsociada(String parteAsociada) {
         this.parteAsociada = parteAsociada;
     }
+
+    public String getNumeroParte() { return numeroParte; }
+    public void setNumeroParte(String v) { this.numeroParte = v; }
+    public String getNumeroSerie() { return numeroSerie; }
+    public void setNumeroSerie(String v) { this.numeroSerie = v; }
+    public String getAccionCorrectiva() { return accionCorrectiva; }
+    public void setAccionCorrectiva(String v) { this.accionCorrectiva = v; }
+    public String getEfectuadoPor() { return efectuadoPor; }
+    public void setEfectuadoPor(String v) { this.efectuadoPor = v; }
+    public String getInspeccionadoPor() { return inspeccionadoPor; }
+    public void setInspeccionadoPor(String v) { this.inspeccionadoPor = v; }
+    public String getFechaCumplimiento() { return fechaCumplimiento; }
+    public void setFechaCumplimiento(String v) { this.fechaCumplimiento = v; }
 }

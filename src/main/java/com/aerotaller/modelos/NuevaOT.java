@@ -75,6 +75,40 @@ public class NuevaOT {
     @Column(name = "ComentarioCliente", columnDefinition = "TEXT")
     private String comentarioCliente;
 
+    // --- P-00: Campos para plantillas de impresión (AG-145-03) ---
+    @Column(name = "TipoMantenimiento", length = 15)
+    private String tipoMantenimiento; // AERONAVE o COMPONENTE
+
+    @Column(name = "ModalidadMantenimiento", length = 15)
+    private String modalidadMantenimiento; // PROGRAMADO o NO_PROGRAMADO
+
+    @Column(name = "ComentarioTaller", columnDefinition = "TEXT")
+    private String comentarioTaller;
+
+    @Column(name = "ComponenteDescripcion", length = 255)
+    private String componenteDescripcion;
+
+    @Column(name = "ComponenteNumeroParte", length = 100)
+    private String componenteNumeroParte;
+
+    @Column(name = "ComponenteNumeroSerie", length = 100)
+    private String componenteNumeroSerie;
+
+    @Column(name = "ComponenteCantidad")
+    private Integer componenteCantidad;
+
+    @Column(name = "ComponenteHoras", precision = 10, scale = 2)
+    private BigDecimal componenteHoras;
+
+    @Column(name = "ComponenteCiclos")
+    private Integer componenteCiclos;
+
+    @Column(name = "ComponenteAeronaveAsociada", length = 20)
+    private String componenteAeronaveAsociada;
+
+    @Column(name = "ComponenteHorasCiclosRemocion", length = 50)
+    private String componenteHorasCiclosRemocion;
+
     @OneToMany(mappedBy = "ot", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OTTareaMantenimiento> tareasMantenimiento = new ArrayList<>();
 
@@ -256,6 +290,39 @@ public class NuevaOT {
     public void setComentarioCliente(String comentarioCliente) {
         this.comentarioCliente = comentarioCliente;
     }
+
+    public String getTipoMantenimiento() { return tipoMantenimiento; }
+    public void setTipoMantenimiento(String tipoMantenimiento) { this.tipoMantenimiento = tipoMantenimiento; }
+
+    public String getModalidadMantenimiento() { return modalidadMantenimiento; }
+    public void setModalidadMantenimiento(String modalidadMantenimiento) { this.modalidadMantenimiento = modalidadMantenimiento; }
+
+    public String getComentarioTaller() { return comentarioTaller; }
+    public void setComentarioTaller(String comentarioTaller) { this.comentarioTaller = comentarioTaller; }
+
+    public String getComponenteDescripcion() { return componenteDescripcion; }
+    public void setComponenteDescripcion(String componenteDescripcion) { this.componenteDescripcion = componenteDescripcion; }
+
+    public String getComponenteNumeroParte() { return componenteNumeroParte; }
+    public void setComponenteNumeroParte(String componenteNumeroParte) { this.componenteNumeroParte = componenteNumeroParte; }
+
+    public String getComponenteNumeroSerie() { return componenteNumeroSerie; }
+    public void setComponenteNumeroSerie(String componenteNumeroSerie) { this.componenteNumeroSerie = componenteNumeroSerie; }
+
+    public Integer getComponenteCantidad() { return componenteCantidad; }
+    public void setComponenteCantidad(Integer componenteCantidad) { this.componenteCantidad = componenteCantidad; }
+
+    public BigDecimal getComponenteHoras() { return componenteHoras; }
+    public void setComponenteHoras(BigDecimal componenteHoras) { this.componenteHoras = componenteHoras; }
+
+    public Integer getComponenteCiclos() { return componenteCiclos; }
+    public void setComponenteCiclos(Integer componenteCiclos) { this.componenteCiclos = componenteCiclos; }
+
+    public String getComponenteAeronaveAsociada() { return componenteAeronaveAsociada; }
+    public void setComponenteAeronaveAsociada(String componenteAeronaveAsociada) { this.componenteAeronaveAsociada = componenteAeronaveAsociada; }
+
+    public String getComponenteHorasCiclosRemocion() { return componenteHorasCiclosRemocion; }
+    public void setComponenteHorasCiclosRemocion(String componenteHorasCiclosRemocion) { this.componenteHorasCiclosRemocion = componenteHorasCiclosRemocion; }
 
     public List<OTTareaMantenimiento> getTareasMantenimiento() {
         return tareasMantenimiento;

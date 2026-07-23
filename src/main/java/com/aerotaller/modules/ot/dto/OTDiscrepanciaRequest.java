@@ -7,6 +7,8 @@ public class OTDiscrepanciaRequest
     private String descripcion;
     private String estatus;
     private String acciones;
+    private String tipoDiscrepancia;
+    private java.math.BigDecimal hhEstimadas;
     private String aeronavegable;
     private String fechaAutorizada;
     private String accionCorrectiva;
@@ -79,4 +81,9 @@ public class OTDiscrepanciaRequest
 
     public String getParteAsociada() { return parteAsociada; }
     public void setParteAsociada(String parteAsociada) { this.parteAsociada = parteAsociada; }
+
+    public String getTipoDiscrepancia() { return tipoDiscrepancia; }
+    public void setTipoDiscrepancia(String v) { this.tipoDiscrepancia = v; }
+    public java.math.BigDecimal getHhEstimadas() { return hhEstimadas; }
+    public void setHhEstimadas(java.math.BigDecimal v) { this.hhEstimadas = v; }
 }

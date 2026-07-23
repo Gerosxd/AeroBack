@@ -7,6 +7,7 @@ public class SalidaArtDetalleResponse {
     private Integer idSalida;
     private String noSalida;
     private LocalDate fecha;
+    private String referencia;
     private String destinatario;
     private String direccionDestinatario;
     private String encargadoAlmacen;
@@ -86,4 +87,7 @@ public class SalidaArtDetalleResponse {
     public void setArticulos(List<ArticuloSalidaResponse> articulos) {
         this.articulos = articulos;
     }
+
+    public String getReferencia() { return referencia; }
+    public void setReferencia(String referencia) { this.referencia = referencia; }
 }

@@ -41,6 +41,7 @@ public class SalidaArtServiceImpl implements SalidaArtService {
         SalidaArt salida = new SalidaArt();
         salida.setNoSalida(request.getNoSalida());
         salida.setFecha(LocalDate.now());
+        salida.setReferencia(request.getReferencia());
         salida.setDestinatario(request.getDestinatario());
         salida.setDireccionDestinatario(request.getDireccionDestinatario());
         salida.setEncargadoAlmacen(request.getEncargadoAlmacen());
@@ -84,6 +85,7 @@ public class SalidaArtServiceImpl implements SalidaArtService {
                     res.setIdSalida(salida.getIdSalida());
                     res.setNoSalida(salida.getNoSalida());
                     res.setFecha(salida.getFecha());
+                    res.setReferencia(salida.getReferencia());
                     res.setDestinatario(salida.getDestinatario());
                     res.setDireccionDestinatario(salida.getDireccionDestinatario());
                     // Importante para tu tabla de Vue
@@ -101,6 +103,7 @@ public class SalidaArtServiceImpl implements SalidaArtService {
         res.setIdSalida(salida.getIdSalida());
         res.setNoSalida(salida.getNoSalida());
         res.setFecha(salida.getFecha());
+        res.setReferencia(salida.getReferencia());
         return res;
     }
 
@@ -131,6 +134,7 @@ public class SalidaArtServiceImpl implements SalidaArtService {
         response.setIdSalida(salida.getIdSalida());
         response.setNoSalida(salida.getNoSalida());
         response.setFecha(salida.getFecha());
+        response.setReferencia(salida.getReferencia());
         response.setDestinatario(salida.getDestinatario());
         response.setDireccionDestinatario(salida.getDireccionDestinatario());
         response.setEncargadoAlmacen(salida.getEncargadoAlmacen());

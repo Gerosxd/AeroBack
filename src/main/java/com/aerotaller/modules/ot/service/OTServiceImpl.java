@@ -88,6 +88,18 @@ public class OTServiceImpl implements OTService {
         nuevaOT.setTiempoAPU(request.getTiempoAPU());
         nuevaOT.setCicloAPU(request.getCicloAPU());
         nuevaOT.setComentarioCliente(request.getComentarioCliente());
+        // P-00: plantillas de impresión
+        nuevaOT.setTipoMantenimiento(request.getTipoMantenimiento());
+        nuevaOT.setModalidadMantenimiento(request.getModalidadMantenimiento());
+        nuevaOT.setComentarioTaller(request.getComentarioTaller());
+        nuevaOT.setComponenteDescripcion(request.getComponenteDescripcion());
+        nuevaOT.setComponenteNumeroParte(request.getComponenteNumeroParte());
+        nuevaOT.setComponenteNumeroSerie(request.getComponenteNumeroSerie());
+        nuevaOT.setComponenteCantidad(request.getComponenteCantidad());
+        nuevaOT.setComponenteHoras(request.getComponenteHoras());
+        nuevaOT.setComponenteCiclos(request.getComponenteCiclos());
+        nuevaOT.setComponenteAeronaveAsociada(request.getComponenteAeronaveAsociada());
+        nuevaOT.setComponenteHorasCiclosRemocion(request.getComponenteHorasCiclosRemocion());
 
         if (request.getTareasMantenimiento() != null) {
             for (OTTareaRequest tareaRequest : request.getTareasMantenimiento()) {
@@ -123,6 +135,22 @@ public class OTServiceImpl implements OTService {
         tarea.setIntervalo(tareaRequest.getIntervalo() != null ? tareaRequest.getIntervalo().trim() : null);
         tarea.setRequiereRII(tareaRequest.getRequiereRII() != null ? tareaRequest.getRequiereRII().trim() : null);
         tarea.setParteAsociada(tareaRequest.getParteAsociada() != null ? tareaRequest.getParteAsociada().trim() : null);
+        // P-03: Hoja de Servicio
+        tarea.setNumeroParte(tareaRequest.getNumeroParte());
+        tarea.setNumeroSerie(tareaRequest.getNumeroSerie());
+        tarea.setAccionCorrectiva(tareaRequest.getAccionCorrectiva());
+        tarea.setEfectuadoPor(tareaRequest.getEfectuadoPor());
+        tarea.setInspeccionadoPor(tareaRequest.getInspeccionadoPor());
+        if (tareaRequest.getFechaCumplimiento() != null && !tareaRequest.getFechaCumplimiento().isEmpty()) {
+            tarea.setFechaCumplimiento(java.time.LocalDate.parse(tareaRequest.getFechaCumplimiento()));
+        }
+        tarea.setNumeroParte(tareaRequest.getNumeroParte());
+        tarea.setNumeroSerie(tareaRequest.getNumeroSerie());
+        tarea.setEfectuadoPor(tareaRequest.getEfectuadoPor());
+        tarea.setInspeccionadoPor(tareaRequest.getInspeccionadoPor());
+        if (tareaRequest.getFechaCumplimiento() != null && !tareaRequest.getFechaCumplimiento().isEmpty()) {
+            tarea.setFechaCumplimiento(java.time.LocalDate.parse(tareaRequest.getFechaCumplimiento()));
+        }
         return tarea;
     }
 
@@ -134,6 +162,8 @@ public class OTServiceImpl implements OTService {
         discrepancia.setDescripcion(discrepanciaRequest.getDescripcion().trim());
         discrepancia.setEstatus(discrepanciaRequest.getEstatus() != null ? discrepanciaRequest.getEstatus().trim() : null);
         discrepancia.setAcciones(discrepanciaRequest.getAcciones() != null ? discrepanciaRequest.getAcciones().trim() : null);
+        discrepancia.setTipoDiscrepancia(discrepanciaRequest.getTipoDiscrepancia());
+        discrepancia.setHhEstimadas(discrepanciaRequest.getHhEstimadas());
         discrepancia.setAeronavegable(discrepanciaRequest.getAeronavegable() != null ? discrepanciaRequest.getAeronavegable().trim() : null);
         discrepancia.setAccionCorrectiva(discrepanciaRequest.getAccionCorrectiva() != null ? discrepanciaRequest.getAccionCorrectiva().trim() : null);
         discrepancia.setEfectuadoPor(discrepanciaRequest.getEfectuadoPor() != null ? discrepanciaRequest.getEfectuadoPor().trim() : null);
@@ -260,6 +290,18 @@ public class OTServiceImpl implements OTService {
         response.setHorasTotales(ot.getHorasTotales());
         response.setCiclosTotales(ot.getCiclosTotales());
         response.setComentarioCliente(ot.getComentarioCliente());
+        // P-00: plantillas de impresión
+        response.setTipoMantenimiento(ot.getTipoMantenimiento());
+        response.setModalidadMantenimiento(ot.getModalidadMantenimiento());
+        response.setComentarioTaller(ot.getComentarioTaller());
+        response.setComponenteDescripcion(ot.getComponenteDescripcion());
+        response.setComponenteNumeroParte(ot.getComponenteNumeroParte());
+        response.setComponenteNumeroSerie(ot.getComponenteNumeroSerie());
+        response.setComponenteCantidad(ot.getComponenteCantidad());
+        response.setComponenteHoras(ot.getComponenteHoras());
+        response.setComponenteCiclos(ot.getComponenteCiclos());
+        response.setComponenteAeronaveAsociada(ot.getComponenteAeronaveAsociada());
+        response.setComponenteHorasCiclosRemocion(ot.getComponenteHorasCiclosRemocion());
 
         if (ot.getMatricula() != null) {
             Aeronave aeronave = ot.getMatricula();
@@ -295,6 +337,17 @@ public class OTServiceImpl implements OTService {
                 dto.setIntervalo(t.getIntervalo());
                 dto.setRequiereRII(t.getRequiereRII());
                 dto.setParteAsociada(t.getParteAsociada());
+                dto.setNumeroParte(t.getNumeroParte());
+                dto.setNumeroSerie(t.getNumeroSerie());
+                dto.setAccionCorrectiva(t.getAccionCorrectiva());
+                dto.setEfectuadoPor(t.getEfectuadoPor());
+                dto.setInspeccionadoPor(t.getInspeccionadoPor());
+                dto.setFechaCumplimiento(t.getFechaCumplimiento() != null ? t.getFechaCumplimiento().toString() : null);
+                dto.setNumeroParte(t.getNumeroParte());
+                dto.setNumeroSerie(t.getNumeroSerie());
+                dto.setEfectuadoPor(t.getEfectuadoPor());
+                dto.setInspeccionadoPor(t.getInspeccionadoPor());
+                dto.setFechaCumplimiento(t.getFechaCumplimiento() != null ? t.getFechaCumplimiento().toString() : null);
                 return dto;
             }).toList());
         }
@@ -306,6 +359,8 @@ public class OTServiceImpl implements OTService {
                 dto.setDescripcion(d.getDescripcion());
                 dto.setEstatus(d.getEstatus());
                 dto.setAcciones(d.getAcciones());
+                dto.setTipoDiscrepancia(d.getTipoDiscrepancia());
+                dto.setHhEstimadas(d.getHhEstimadas());
                 dto.setAeronavegable(d.getAeronavegable());
                 dto.setFechaAutorizada(d.getFechaAutorizada() != null ? d.getFechaAutorizada().toString() : null);
                 dto.setAccionCorrectiva(d.getAccionCorrectiva());
@@ -346,6 +401,18 @@ public class OTServiceImpl implements OTService {
         ot.setFechaEntrega(request.getFechaEntrega());
         ot.setFechaCierre(request.getFechaCierre());
         ot.setComentarioCliente(request.getComentarioCliente());
+        // P-00: plantillas de impresión
+        ot.setTipoMantenimiento(request.getTipoMantenimiento());
+        ot.setModalidadMantenimiento(request.getModalidadMantenimiento());
+        ot.setComentarioTaller(request.getComentarioTaller());
+        ot.setComponenteDescripcion(request.getComponenteDescripcion());
+        ot.setComponenteNumeroParte(request.getComponenteNumeroParte());
+        ot.setComponenteNumeroSerie(request.getComponenteNumeroSerie());
+        ot.setComponenteCantidad(request.getComponenteCantidad());
+        ot.setComponenteHoras(request.getComponenteHoras());
+        ot.setComponenteCiclos(request.getComponenteCiclos());
+        ot.setComponenteAeronaveAsociada(request.getComponenteAeronaveAsociada());
+        ot.setComponenteHorasCiclosRemocion(request.getComponenteHorasCiclosRemocion());
 
         // Sincronizar Colección de Tareas de Mantenimiento (Clear & Refill)
         ot.getTareasMantenimiento().clear();
@@ -366,6 +433,21 @@ public class OTServiceImpl implements OTService {
                 tarea.setIntervalo(tDto.getIntervalo());
                 tarea.setRequiereRII(tDto.getRequiereRII());
                 tarea.setParteAsociada(tDto.getParteAsociada());
+                tarea.setNumeroParte(tDto.getNumeroParte());
+                tarea.setNumeroSerie(tDto.getNumeroSerie());
+                tarea.setAccionCorrectiva(tDto.getAccionCorrectiva());
+                tarea.setEfectuadoPor(tDto.getEfectuadoPor());
+                tarea.setInspeccionadoPor(tDto.getInspeccionadoPor());
+                if (tDto.getFechaCumplimiento() != null && !tDto.getFechaCumplimiento().isEmpty()) {
+                    tarea.setFechaCumplimiento(java.time.LocalDate.parse(tDto.getFechaCumplimiento()));
+                }
+                tarea.setNumeroParte(tDto.getNumeroParte());
+                tarea.setNumeroSerie(tDto.getNumeroSerie());
+                tarea.setEfectuadoPor(tDto.getEfectuadoPor());
+                tarea.setInspeccionadoPor(tDto.getInspeccionadoPor());
+                if (tDto.getFechaCumplimiento() != null && !tDto.getFechaCumplimiento().isEmpty()) {
+                    tarea.setFechaCumplimiento(java.time.LocalDate.parse(tDto.getFechaCumplimiento()));
+                }
                 ot.agregarTarea(tarea); // Helper bidireccional de tu entidad
             });
         }
@@ -379,6 +461,8 @@ public class OTServiceImpl implements OTService {
                 discrepancia.setDescripcion(dDto.getDescripcion());
                 discrepancia.setEstatus(dDto.getEstatus());
                 discrepancia.setAcciones(dDto.getAcciones());
+                discrepancia.setTipoDiscrepancia(dDto.getTipoDiscrepancia());
+                discrepancia.setHhEstimadas(dDto.getHhEstimadas());
                 discrepancia.setAeronavegable(dDto.getAeronavegable());
                 discrepancia.setAccionCorrectiva(dDto.getAccionCorrectiva());
                 discrepancia.setEfectuadoPor(dDto.getEfectuadoPor());
