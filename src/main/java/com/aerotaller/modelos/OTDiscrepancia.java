@@ -27,6 +27,13 @@ public class OTDiscrepancia {
     @Column(name = "Acciones", length = 255)
     private String acciones;
 
+    // --- P-00: Campos para plantilla AG-145-12 ---
+    @Column(name = "TipoDiscrepancia", length = 15)
+    private String tipoDiscrepancia; // OPERADOR o SERVICIO
+
+    @Column(name = "HHEstimadas", precision = 6, scale = 2)
+    private java.math.BigDecimal hhEstimadas;
+
     @Column(name = "Aeronavegable", length = 2)
     private String aeronavegable;
 
@@ -98,6 +105,12 @@ public class OTDiscrepancia {
     public void setAcciones(String acciones) {
         this.acciones = acciones;
     }
+
+    public String getTipoDiscrepancia() { return tipoDiscrepancia; }
+    public void setTipoDiscrepancia(String tipoDiscrepancia) { this.tipoDiscrepancia = tipoDiscrepancia; }
+
+    public java.math.BigDecimal getHhEstimadas() { return hhEstimadas; }
+    public void setHhEstimadas(java.math.BigDecimal hhEstimadas) { this.hhEstimadas = hhEstimadas; }
 
     public String getAeronavegable() {
         return aeronavegable;

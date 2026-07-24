@@ -17,6 +17,9 @@ public class SalidaArt {
     @Column(nullable = false)
     private LocalDate fecha;
 
+    // P-05: Referencia del documento (OT, requisición, etc.) — formato AG-145-22
+    private String referencia;
+
     private String destinatario;
 
     private String direccionDestinatario;
@@ -54,6 +57,14 @@ public class SalidaArt {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
     }
 
     public String getDestinatario() {

@@ -32,6 +32,19 @@ public class CrearOTRequest
 
     private String comentarioCliente;
 
+    // P-00: Campos plantillas de impresión
+    private String tipoMantenimiento;
+    private String modalidadMantenimiento;
+    private String comentarioTaller;
+    private String componenteDescripcion;
+    private String componenteNumeroParte;
+    private String componenteNumeroSerie;
+    private Integer componenteCantidad;
+    private BigDecimal componenteHoras;
+    private Integer componenteCiclos;
+    private String componenteAeronaveAsociada;
+    private String componenteHorasCiclosRemocion;
+
     private String estado;
 
     private List<OTTareaRequest> tareasMantenimiento;
@@ -228,4 +241,27 @@ public class CrearOTRequest
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getTipoMantenimiento() { return tipoMantenimiento; }
+    public void setTipoMantenimiento(String v) { this.tipoMantenimiento = v; }
+    public String getModalidadMantenimiento() { return modalidadMantenimiento; }
+    public void setModalidadMantenimiento(String v) { this.modalidadMantenimiento = v; }
+    public String getComentarioTaller() { return comentarioTaller; }
+    public void setComentarioTaller(String v) { this.comentarioTaller = v; }
+    public String getComponenteDescripcion() { return componenteDescripcion; }
+    public void setComponenteDescripcion(String v) { this.componenteDescripcion = v; }
+    public String getComponenteNumeroParte() { return componenteNumeroParte; }
+    public void setComponenteNumeroParte(String v) { this.componenteNumeroParte = v; }
+    public String getComponenteNumeroSerie() { return componenteNumeroSerie; }
+    public void setComponenteNumeroSerie(String v) { this.componenteNumeroSerie = v; }
+    public Integer getComponenteCantidad() { return componenteCantidad; }
+    public void setComponenteCantidad(Integer v) { this.componenteCantidad = v; }
+    public BigDecimal getComponenteHoras() { return componenteHoras; }
+    public void setComponenteHoras(BigDecimal v) { this.componenteHoras = v; }
+    public Integer getComponenteCiclos() { return componenteCiclos; }
+    public void setComponenteCiclos(Integer v) { this.componenteCiclos = v; }
+    public String getComponenteAeronaveAsociada() { return componenteAeronaveAsociada; }
+    public void setComponenteAeronaveAsociada(String v) { this.componenteAeronaveAsociada = v; }
+    public String getComponenteHorasCiclosRemocion() { return componenteHorasCiclosRemocion; }
+    public void setComponenteHorasCiclosRemocion(String v) { this.componenteHorasCiclosRemocion = v; }
 }

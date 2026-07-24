@@ -7,6 +7,7 @@ import java.util.List;
 public class CreateSalidaArtRequest {
     // Frontend sends YYYY-MM-DD; backend enforces "fecha del dia" in the service.
     private String fecha;
+    private String referencia;
     private String noSalida;
     private String destinatario;
     private String direccionDestinatario;
@@ -79,4 +80,7 @@ public class CreateSalidaArtRequest {
     public void setDetalles(List<CreateDetalleSalidaArtRequest> detalles) {
         this.detalles = detalles;
     }
+
+    public String getReferencia() { return referencia; }
+    public void setReferencia(String referencia) { this.referencia = referencia; }
 }

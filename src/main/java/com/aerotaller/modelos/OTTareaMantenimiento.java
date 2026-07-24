@@ -43,6 +43,25 @@ public class OTTareaMantenimiento {
     @Column(name = "ParteAsociada", length = 255)
     private String parteAsociada;
 
+    // --- P-03: Campos para la Hoja de Servicio AG-145-04 ---
+    @Column(name = "NumeroParte", length = 100)
+    private String numeroParte;
+
+    @Column(name = "NumeroSerie", length = 100)
+    private String numeroSerie;
+
+    @Column(name = "AccionCorrectiva", columnDefinition = "TEXT")
+    private String accionCorrectiva;
+
+    @Column(name = "EfectuadoPor", length = 150)
+    private String efectuadoPor;
+
+    @Column(name = "InspeccionadoPor", length = 150)
+    private String inspeccionadoPor;
+
+    @Column(name = "FechaCumplimiento")
+    private java.time.LocalDate fechaCumplimiento;
+
     public OTTareaMantenimiento() {
     }
 
@@ -133,4 +152,23 @@ public class OTTareaMantenimiento {
     public void setParteAsociada(String parteAsociada) {
         this.parteAsociada = parteAsociada;
     }
+
+    // --- P-03: Hoja de Servicio AG-145-04 ---
+    public String getNumeroParte() { return numeroParte; }
+    public void setNumeroParte(String numeroParte) { this.numeroParte = numeroParte; }
+
+    public String getNumeroSerie() { return numeroSerie; }
+    public void setNumeroSerie(String numeroSerie) { this.numeroSerie = numeroSerie; }
+
+    public String getAccionCorrectiva() { return accionCorrectiva; }
+    public void setAccionCorrectiva(String accionCorrectiva) { this.accionCorrectiva = accionCorrectiva; }
+
+    public String getEfectuadoPor() { return efectuadoPor; }
+    public void setEfectuadoPor(String efectuadoPor) { this.efectuadoPor = efectuadoPor; }
+
+    public String getInspeccionadoPor() { return inspeccionadoPor; }
+    public void setInspeccionadoPor(String inspeccionadoPor) { this.inspeccionadoPor = inspeccionadoPor; }
+
+    public java.time.LocalDate getFechaCumplimiento() { return fechaCumplimiento; }
+    public void setFechaCumplimiento(java.time.LocalDate fechaCumplimiento) { this.fechaCumplimiento = fechaCumplimiento; }
 }
