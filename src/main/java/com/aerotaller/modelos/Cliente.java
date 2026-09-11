@@ -30,11 +30,17 @@ public class Cliente {
     @Column(name = "Telefono", nullable = false, length = 15)
     private String telefono;
 
-    @Column(name = "Correo", nullable = false, length = 100)
+    @Column(name = "Correo", nullable = true, length = 100)
     private String correo;
 
     @Column(name = "Direccion", nullable = false, length = 200)
     private String direccion;
+
+    @Column(name = "Ciudad", length = 100)
+    private String ciudad;
+
+    @Column(name = "EstadoRep", length = 100)
+    private String estadoRep;
 
     @Column(name = "estado", length = 20)
     private String estado = "Activo";

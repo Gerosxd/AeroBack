@@ -8,6 +8,8 @@ import java.util.List;
 public class CrearOTRequest
 {
 
+    private String noOT;
+
     private Integer idAeronave;
     private Integer idCliente;
 
@@ -264,4 +266,12 @@ public class CrearOTRequest
     public void setComponenteAeronaveAsociada(String v) { this.componenteAeronaveAsociada = v; }
     public String getComponenteHorasCiclosRemocion() { return componenteHorasCiclosRemocion; }
     public void setComponenteHorasCiclosRemocion(String v) { this.componenteHorasCiclosRemocion = v; }
+
+    public String getNoOT() {
+        return noOT;
+    }
+
+    public void setNoOT(String noOT) {
+        this.noOT = noOT;
+    }
 }

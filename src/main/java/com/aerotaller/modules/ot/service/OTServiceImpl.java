@@ -69,6 +69,11 @@ public class OTServiceImpl implements OTService {
 
         NuevaOT nuevaOT = new NuevaOT();
         nuevaOT.setNoOT(generarSiguienteNoOT());
+        if (request.getNoOT() != null && !request.getNoOT().isBlank()) {
+            nuevaOT.setNoOT(request.getNoOT().trim());
+        } else {
+            nuevaOT.setNoOT(generarSiguienteNoOT());
+        }
         nuevaOT.setMatricula(aeronave);
         nuevaOT.setCliente(cliente);
         nuevaOT.setFechaCreacion(LocalDateTime.now());
@@ -319,10 +324,22 @@ public class OTServiceImpl implements OTService {
         }
 
         if (ot.getCliente() != null) {
-            response.setClienteCompania(ot.getCliente().getCompania());
-            response.setClienteContacto(ot.getCliente().getContacto());
+            Cliente cl = ot.getCliente();
+            response.setClienteCompania(cl.getCompania());
+            response.setClienteContacto(cl.getContacto());
+            response.setClienteDireccion(cl.getDireccion());
+            response.setClienteCiudad(cl.getCiudad() != null && !cl.getCiudad().isBlank() ? cl.getCiudad() : "—");
+            response.setClienteEstadoRep(cl.getEstadoRep() != null && !cl.getEstadoRep().isBlank() ? cl.getEstadoRep() : "—");
+            response.setClienteTelefono(cl.getTelefono());
+            response.setClienteCorreo(cl.getCorreo() != null && !cl.getCorreo().isBlank() ? cl.getCorreo() : "ukn");
         } else {
             response.setClienteCompania("Sin cliente");
+            response.setClienteContacto("—");
+            response.setClienteDireccion("—");
+            response.setClienteCiudad("—");
+            response.setClienteEstadoRep("—");
+            response.setClienteTelefono("—");
+            response.setClienteCorreo("—");
         }
 
         if (ot.getTareasMantenimiento() != null) {

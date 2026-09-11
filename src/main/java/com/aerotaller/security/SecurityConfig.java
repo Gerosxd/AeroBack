@@ -28,13 +28,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                // 1. Al activar esto al inicio, Spring intercepta y aprueba el Preflight automáticamente usando tu Bean de abajo
+                // Usará automáticamente el Bean 'corsConfigurationSource' definido abajo
                 .cors(Customizer.withDefaults())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        // SOLUCIÓN: Se removió la línea de CorsUtils que causaba el fallo de resolución.
+                        // Permitir explícitamente todos los Preflight OPTIONS antes de validar rutas
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
                                 "/api/auth/**",
@@ -51,7 +51,8 @@ public class SecurityConfig {
                                 "/api/salidas/**",
                                 "/api/entradas-articulos/**",
                                 "/api/ots/**",
-                                "/api/programadas/**"
+                                "/api/programadas/**",
+                                "/api/compras/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -64,13 +65,26 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
+        // URLs autorizadas (Tu despliegue en Azure Static Web Apps y entorno local)
         configuration.setAllowedOrigins(Arrays.asList(
                 "https://mango-grass-0de474f1e.6.azurestaticapps.net",
                 "http://localhost:5173"
         ));
 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
+        // Métodos HTTP permitidos
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+
+        // SOLUCIÓN: Se expandieron las cabeceras permitidas para evitar bloqueos del navegador en peticiones complejas
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Content-Type",
+                "Cache-Control",
+                "Accept",
+                "X-Requested-With",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"
+        ));
+
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

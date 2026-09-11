@@ -172,7 +172,7 @@ public class OTController
         }
     }
 
-    @GetMapping("/{id}/discrepancias-pdf")
+    @GetMapping({"/{id}/discrepancias-pdf", "/{id}/discrepancias/pdf"})
     public ResponseEntity<?> generarDiscrepanciasPdf(@PathVariable Integer id) {
         try {
             byte[] data = otPdfService.generarDiscrepanciasTodas(id);
@@ -181,7 +181,11 @@ public class OTController
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(data);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            // Si la OT no existe sí es 404, de lo contrario es un 400 Bad Request
+            if (e.getMessage() != null && e.getMessage().contains("no existe")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error interno al generar el formato de Discrepancias.");

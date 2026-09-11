@@ -10,8 +10,16 @@ public class OTDetalleResponse {
     private String noOT;
     private String matricula;
     private String modeloAeronave;
+
+    // DATOS DE CLIENTE DESACOPLADOS
     private String clienteCompania;
     private String clienteContacto;
+    private String clienteDireccion;
+    private String clienteCiudad;
+    private String clienteEstadoRep;
+    private String clienteTelefono;
+    private String clienteCorreo;
+
     private LocalDateTime fechaCreacion;
     private LocalDateTime fechaApertura;
     private LocalDate fechaEntrega;
@@ -56,6 +64,21 @@ public class OTDetalleResponse {
 
     public String getClienteContacto() { return clienteContacto; }
     public void setClienteContacto(String clienteContacto) { this.clienteContacto = clienteContacto; }
+
+    public String getClienteDireccion() { return clienteDireccion; }
+    public void setClienteDireccion(String clienteDireccion) { this.clienteDireccion = clienteDireccion; }
+
+    public String getClienteCiudad() { return clienteCiudad; }
+    public void setClienteCiudad(String clienteCiudad) { this.clienteCiudad = clienteCiudad; }
+
+    public String getClienteEstadoRep() { return clienteEstadoRep; }
+    public void setClienteEstadoRep(String clienteEstadoRep) { this.clienteEstadoRep = clienteEstadoRep; }
+
+    public String getClienteTelefono() { return clienteTelefono; }
+    public void setClienteTelefono(String clienteTelefono) { this.clienteTelefono = clienteTelefono; }
+
+    public String getClienteCorreo() { return clienteCorreo; }
+    public void setClienteCorreo(String clienteCorreo) { this.clienteCorreo = clienteCorreo; }
 
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
     public void setFechaCreacion(LocalDateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
