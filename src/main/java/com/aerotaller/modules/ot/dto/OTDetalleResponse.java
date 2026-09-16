@@ -32,6 +32,9 @@ public class OTDetalleResponse {
     // P-00: Campos plantillas de impresión
     private String tipoMantenimiento;
     private String modalidadMantenimiento;
+    // B3
+    private String tipoAeronave;
+    private String tipoAeronaveOtro;
     private String comentarioTaller;
     private String componenteDescripcion;
     private String componenteNumeroParte;
@@ -114,6 +117,11 @@ public class OTDetalleResponse {
     public void setTipoMantenimiento(String v) { this.tipoMantenimiento = v; }
     public String getModalidadMantenimiento() { return modalidadMantenimiento; }
     public void setModalidadMantenimiento(String v) { this.modalidadMantenimiento = v; }
+
+    public String getTipoAeronave() { return tipoAeronave; }
+    public void setTipoAeronave(String v) { this.tipoAeronave = v; }
+    public String getTipoAeronaveOtro() { return tipoAeronaveOtro; }
+    public void setTipoAeronaveOtro(String v) { this.tipoAeronaveOtro = v; }
     public String getComentarioTaller() { return comentarioTaller; }
     public void setComentarioTaller(String v) { this.comentarioTaller = v; }
     public String getComponenteDescripcion() { return componenteDescripcion; }

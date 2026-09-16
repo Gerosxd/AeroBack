@@ -271,9 +271,20 @@ public class OTPdfServiceImpl implements OTPdfService {
             cs.stroke();
         }
         etiquetaBilingue(cs, x + 4, y - 11, "TIPO DE AERONAVE:", "AIRCRAFT TYPE", 6f);
-        checkbox(cs, x + c4 + 6, y - 12, false, "ALA FIJA", "FIXED WING", 6f);
-        checkbox(cs, x + c4 * 2 + 6, y - 12, false, "ALA ROTATIVA", "ROTARY WING", 6f);
+        // B3: conectados al dato capturado en la OT (comentario 9)
+        boolean alaFija = "ALA_FIJA".equalsIgnoreCase(ot.getTipoAeronave());
+        boolean alaRotativa = "ALA_ROTATIVA".equalsIgnoreCase(ot.getTipoAeronave());
+        boolean tipoOtro = "OTRO".equalsIgnoreCase(ot.getTipoAeronave());
+        checkbox(cs, x + c4 + 6, y - 12, alaFija, "ALA FIJA", "FIXED WING", 6f);
+        checkbox(cs, x + c4 * 2 + 6, y - 12, alaRotativa, "ALA ROTATIVA", "ROTARY WING", 6f);
         etiquetaBilingue(cs, x + c4 * 3 + 6, y - 11, "OTRO / OTHER:", null, 6f);
+        if (tipoOtro && ot.getTipoAeronaveOtro() != null && !ot.getTipoAeronaveOtro().isBlank()) {
+            // Recortar al ancho de la celda para no desbordar el recuadro
+            List<String> lineasOtro = partirLineas(ot.getTipoAeronaveOtro(), fontRegular(), 6.5f, c4 - 62);
+            if (!lineasOtro.isEmpty()) {
+                valor(cs, x + c4 * 3 + 58, y - 11, lineasOtro.get(0), 6.5f);
+            }
+        }
         y -= rowH;
 
         // 2. Matrícula / Marca / Modelo
@@ -336,6 +347,16 @@ public class OTPdfServiceImpl implements OTPdfService {
         y -= rowH;
 
         // Sub-filas Modelo, Serie, Horas, Ciclos
+        // C1 (punto 12): Modelo y No. de Serie por unidad salen del registro de la aeronave;
+        // Horas y Ciclos, de lo capturado en la OT.
+        String moM1 = nvlGuion(a != null ? a.getMoMotorLH() : null);
+        String moM2 = nvlGuion(a != null ? a.getMoMotorRH() : null);
+        String moM3 = nvlGuion(a != null ? a.getMoMotorC() : null);
+        String moApu = nvlGuion(a != null ? a.getMoAPU() : null);
+        String nsM1 = nvlGuion(a != null ? a.getNsMotorLH() : null);
+        String nsM2 = nvlGuion(a != null ? a.getNsMotorRH() : null);
+        String nsM3 = nvlGuion(a != null ? a.getNsMotorC() : null);
+        String nsApu = nvlGuion(a != null ? a.getNsAPU() : null);
         String[] rubros = {"Modelo:", "Número de Serie:", "Horas Totales:", "Ciclos Totales:"};
         for (String rubro : rubros) {
             rect(cs, x, y - rowH, w, rowH);
@@ -345,7 +366,17 @@ public class OTPdfServiceImpl implements OTPdfService {
                 cs.stroke();
             }
             etiquetaBilingue(cs, x + 4, y - 11, rubro, null, 6f);
-            if (rubro.startsWith("Horas Totales:")) {
+            if (rubro.startsWith("Modelo:")) {
+                valor(cs, x + c5 + 4, y - 12, moM1, 6.5f);
+                valor(cs, x + c5 * 2 + 4, y - 12, moM2, 6.5f);
+                valor(cs, x + c5 * 3 + 4, y - 12, moM3, 6.5f);
+                valor(cs, x + c5 * 4 + 4, y - 12, moApu, 6.5f);
+            } else if (rubro.startsWith("Número de Serie:")) {
+                valor(cs, x + c5 + 4, y - 12, nsM1, 6.5f);
+                valor(cs, x + c5 * 2 + 4, y - 12, nsM2, 6.5f);
+                valor(cs, x + c5 * 3 + 4, y - 12, nsM3, 6.5f);
+                valor(cs, x + c5 * 4 + 4, y - 12, nsApu, 6.5f);
+            } else if (rubro.startsWith("Horas Totales:")) {
                 valor(cs, x + c5 + 4, y - 12, ot.getTiempoMotor1() != null ? ot.getTiempoMotor1().toString() : "—", 6.5f);
                 valor(cs, x + c5 * 2 + 4, y - 12, ot.getTiempoMotor2() != null ? ot.getTiempoMotor2().toString() : "—", 6.5f);
                 valor(cs, x + c5 * 3 + 4, y - 12, ot.getTiempoMotor3() != null ? ot.getTiempoMotor3().toString() : "—", 6.5f);
@@ -690,8 +721,13 @@ public class OTPdfServiceImpl implements OTPdfService {
         String matricula = ot.getMatricula() != null ? ot.getMatricula().getMatricula() : "";
         String hh = tarea.getHorasTotales() != null ? tarea.getHorasTotales().toString() : "";
 
-        // Ajuste de tamaño para clientes de nombre largo
-        float sizeOperador = operador.length() > 25 ? 6.5f : 7.5f;
+        // C3 (14.2): reducir la fuente hasta que el nombre quepa en la celda
+        float sizeOperador = 7.5f;
+        float anchoDisponible = c4 - 6f;
+        while (sizeOperador > 4.5f
+                && fontRegular().getStringWidth(sanear(operador)) / 1000f * sizeOperador > anchoDisponible) {
+            sizeOperador -= 0.5f;
+        }
         textoCentrado(cs, fontRegular(), sizeOperador, Color.BLACK, x, c4, y - 12, operador);
         textoCentrado(cs, fontRegular(), 7.5f, Color.BLACK, x + c4, c4, y - 12, matricula);
         textoCentrado(cs, fontRegular(), 7.5f, Color.BLACK, x + c4 * 2, c4, y - 12, hh);
@@ -731,13 +767,14 @@ public class OTPdfServiceImpl implements OTPdfService {
         cs.lineTo(x + colTarea + colDesc, y);
         cs.stroke();
 
-        valor(cs, x + 5, y - 13, tarea.getCodigo(), 7.5f);
+        // C4 (14.3): contenido centrado como en el formato oficial
+        textoCentrado(cs, fontRegular(), 7.5f, Color.BLACK, x, colTarea, y - 13, tarea.getCodigo());
         float ty = y - 12;
         for (String linea : lineasDesc) {
-            valor(cs, x + colTarea + 5, ty, linea, 7f);
+            textoCentrado(cs, fontRegular(), 7f, Color.BLACK, x + colTarea, colDesc, ty, linea);
             ty -= 9;
         }
-        valor(cs, x + colTarea + colDesc + 5, y - 13, tarea.getIntervalo(), 7.5f);
+        textoCentrado(cs, fontRegular(), 7.5f, Color.BLACK, x + colTarea + colDesc, colInterv, y - 13, tarea.getIntervalo());
         y -= rowH;
 
         return y;
@@ -829,8 +866,9 @@ public class OTPdfServiceImpl implements OTPdfService {
         cs.fill();
         float cx = x;
         for (int i = 0; i < 6; i++) {
-            textoCentrado(cs, fontBold(), 5.5f, Color.WHITE, cx, anchos[i], y - 8, cols[i][0]);
-            textoCentrado(cs, fontItalic(), 4.5f, Color.WHITE, cx, anchos[i], y - 15, cols[i][1]);
+            // C5 (14.5): texto azul marino sobre fondo claro, como el formato real
+            textoCentrado(cs, fontBold(), 5.5f, AZUL_MARINO, cx, anchos[i], y - 8, cols[i][0]);
+            textoCentrado(cs, fontItalic(), 4.5f, AZUL_MARINO, cx, anchos[i], y - 15, cols[i][1]);
             cx += anchos[i];
         }
         cs.setNonStrokingColor(Color.BLACK);
@@ -864,8 +902,14 @@ public class OTPdfServiceImpl implements OTPdfService {
                 + "se encuentran en total conformidad con las normativas/certificaciones vigentes y aplicables de mantenimiento, "
                 + "seguridad y calidad en la industria de la aviación. Además de que la herramienta/equipo asociado que requiere "
                 + "calibración está vigente.";
+        // C5 (14.5): certificación también en inglés, como el formato real
+        String certEn = "We certify that the practices, methods, procedures, and materials used in the assigned tasks "
+                + "are in full compliance with the current and applicable maintenance, safety, and quality "
+                + "regulations/certifications within the aviation industry. We further certify that any associated "
+                + "tools and/or equipment requiring calibration are within their valid calibration period.";
         List<String> lineasEs = partirLineas(certEs, reg, 6f, w - 12);
-        float certH = lineasEs.size() * 7.5f + 8f;
+        List<String> lineasEn = partirLineas(certEn, fontItalic(), 5.5f, w - 12);
+        float certH = lineasEs.size() * 7.5f + lineasEn.size() * 7f + 12f;
 
         cs.setNonStrokingColor(AZUL_CLARO);
         cs.addRect(x, y - certH, w, certH);
@@ -881,6 +925,15 @@ public class OTPdfServiceImpl implements OTPdfService {
             cs.showText(linea);
             cs.endText();
             ty -= 7.5f;
+        }
+        ty -= 2f;
+        for (String linea : lineasEn) {
+            cs.beginText();
+            cs.setFont(fontItalic(), 5.5f);
+            cs.newLineAtOffset(x + 6, ty);
+            cs.showText(sanear(linea));
+            cs.endText();
+            ty -= 7f;
         }
         y -= certH;
 
@@ -1071,7 +1124,8 @@ public class OTPdfServiceImpl implements OTPdfService {
 
         float colFirmas = w * 0.30f;
         float colAccion = w - colFirmas;
-        float bloqueH = 54f;
+        // C2 (13.7): 66pt para que quepan las etiquetas bilingües (parH=22)
+        float bloqueH = 66f;
 
         rect(cs, x, y - bloqueH, colAccion, bloqueH);
         List<String> lineasAcc = partirLineas(d.getAccionCorrectiva(), fontRegular(), 7f, colAccion - 10);
@@ -1092,28 +1146,34 @@ public class OTPdfServiceImpl implements OTPdfService {
         };
         for (int i = 0; i < 3; i++) {
             float py = y - parH * i;
-            float etiquetaH = parH * 0.45f;
+            // C2 (13.7): banda más alta para incluir la etiqueta en inglés
+            float etiquetaH = parH * 0.58f;
             cs.setNonStrokingColor(AZUL_OSCURO);
             cs.addRect(fx, py - etiquetaH, colFirmas, etiquetaH);
             cs.fill();
-            textoCentrado(cs, fontBold(), 5.5f, Color.WHITE, fx, colFirmas, py - etiquetaH + 5, firmas[i][0]);
+            textoCentrado(cs, fontBold(), 5f, Color.WHITE, fx, colFirmas, py - 6f, firmas[i][0]);
+            textoCentrado(cs, fontItalic(), 4.5f, Color.WHITE, fx, colFirmas, py - 11.5f, firmas[i][1]);
             cs.setNonStrokingColor(Color.BLACK);
             rect(cs, fx, py - parH, colFirmas, parH - etiquetaH);
-            textoCentrado(cs, fontRegular(), 6.5f, Color.BLACK, fx, colFirmas, py - parH + 4, firmas[i][2]);
+            textoCentrado(cs, fontRegular(), 6.5f, Color.BLACK, fx, colFirmas, py - parH + 3, firmas[i][2]);
         }
         y -= bloqueH;
 
         float colDescripcion = w * 0.24f;
         float restante = w - colDescripcion;
 
+        // C2 (13.7): barra con versión en inglés incluida
         cs.setNonStrokingColor(AZUL_OSCURO);
-        cs.addRect(x, y - 12f, w, 12f);
+        cs.addRect(x, y - 18f, w, 18f);
         cs.fill();
-        textoCentrado(cs, fontBold(), 6f, Color.WHITE, x, colDescripcion, y - 8.5f, "DESCRIPCIÓN");
-        textoCentrado(cs, fontBold(), 6f, Color.WHITE, x + colDescripcion, restante, y - 8.5f,
+        textoCentrado(cs, fontBold(), 6f, Color.WHITE, x, colDescripcion, y - 8f, "DESCRIPCIÓN");
+        textoCentrado(cs, fontItalic(), 5f, Color.WHITE, x, colDescripcion, y - 14.5f, "DESCRIPTION");
+        textoCentrado(cs, fontBold(), 6f, Color.WHITE, x + colDescripcion, restante, y - 8f,
                 "PARTE, COMPONENTE, EQUIPO Y/O MATERIAL ASOCIADO");
+        textoCentrado(cs, fontItalic(), 5f, Color.WHITE, x + colDescripcion, restante, y - 14.5f,
+                "PART, COMPONENT, EQUIPMENT AND/OR ASSOCIATED MATERIAL");
         cs.setNonStrokingColor(Color.BLACK);
-        y -= 12f;
+        y -= 18f;
 
         float[] anchos = {restante * 0.10f, restante * 0.16f, restante * 0.20f, restante * 0.20f, 0};
         anchos[4] = restante - (anchos[0] + anchos[1] + anchos[2] + anchos[3]);
@@ -1130,8 +1190,9 @@ public class OTPdfServiceImpl implements OTPdfService {
         cs.fill();
         float cx = x + colDescripcion;
         for (int i = 0; i < 5; i++) {
-            textoCentrado(cs, fontBold(), 4.5f, Color.WHITE, cx, anchos[i], y - 7, cols[i][0]);
-            textoCentrado(cs, fontItalic(), 4f, Color.WHITE, cx, anchos[i], y - 13, cols[i][1]);
+            // C2 (13.7): texto azul marino sobre fondo claro, legible como el formato real
+            textoCentrado(cs, fontBold(), 4.5f, AZUL_MARINO, cx, anchos[i], y - 7, cols[i][0]);
+            textoCentrado(cs, fontItalic(), 4f, AZUL_MARINO, cx, anchos[i], y - 13, cols[i][1]);
             cx += anchos[i];
         }
         cs.setNonStrokingColor(Color.BLACK);
@@ -1160,5 +1221,10 @@ public class OTPdfServiceImpl implements OTPdfService {
         }
 
         return y;
+    }
+
+    /** Devuelve el valor o un guion largo cuando viene vacío (celdas de la cuadrícula). */
+    private String nvlGuion(String v) {
+        return (v != null && !v.isBlank()) ? v : "—";
     }
 }

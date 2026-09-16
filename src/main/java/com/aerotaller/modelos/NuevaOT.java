@@ -82,6 +82,13 @@ public class NuevaOT {
     @Column(name = "ModalidadMantenimiento", length = 15)
     private String modalidadMantenimiento; // PROGRAMADO o NO_PROGRAMADO
 
+    // B3: tipo de aeronave para la carátula AG-145-03 (comentarios 9 y 12)
+    @Column(name = "TipoAeronave", length = 20)
+    private String tipoAeronave; // ALA_FIJA, ALA_ROTATIVA u OTRO
+
+    @Column(name = "TipoAeronaveOtro", length = 100)
+    private String tipoAeronaveOtro; // texto libre cuando TipoAeronave = OTRO
+
     @Column(name = "ComentarioTaller", columnDefinition = "TEXT")
     private String comentarioTaller;
 
@@ -296,6 +303,12 @@ public class NuevaOT {
 
     public String getModalidadMantenimiento() { return modalidadMantenimiento; }
     public void setModalidadMantenimiento(String modalidadMantenimiento) { this.modalidadMantenimiento = modalidadMantenimiento; }
+
+    public String getTipoAeronave() { return tipoAeronave; }
+    public void setTipoAeronave(String tipoAeronave) { this.tipoAeronave = tipoAeronave; }
+
+    public String getTipoAeronaveOtro() { return tipoAeronaveOtro; }
+    public void setTipoAeronaveOtro(String tipoAeronaveOtro) { this.tipoAeronaveOtro = tipoAeronaveOtro; }
 
     public String getComentarioTaller() { return comentarioTaller; }
     public void setComentarioTaller(String comentarioTaller) { this.comentarioTaller = comentarioTaller; }

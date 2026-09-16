@@ -96,6 +96,8 @@ public class OTServiceImpl implements OTService {
         // P-00: plantillas de impresión
         nuevaOT.setTipoMantenimiento(request.getTipoMantenimiento());
         nuevaOT.setModalidadMantenimiento(request.getModalidadMantenimiento());
+        nuevaOT.setTipoAeronave(request.getTipoAeronave());
+        nuevaOT.setTipoAeronaveOtro(request.getTipoAeronaveOtro());
         nuevaOT.setComentarioTaller(request.getComentarioTaller());
         nuevaOT.setComponenteDescripcion(request.getComponenteDescripcion());
         nuevaOT.setComponenteNumeroParte(request.getComponenteNumeroParte());
@@ -298,6 +300,8 @@ public class OTServiceImpl implements OTService {
         // P-00: plantillas de impresión
         response.setTipoMantenimiento(ot.getTipoMantenimiento());
         response.setModalidadMantenimiento(ot.getModalidadMantenimiento());
+        response.setTipoAeronave(ot.getTipoAeronave());
+        response.setTipoAeronaveOtro(ot.getTipoAeronaveOtro());
         response.setComentarioTaller(ot.getComentarioTaller());
         response.setComponenteDescripcion(ot.getComponenteDescripcion());
         response.setComponenteNumeroParte(ot.getComponenteNumeroParte());
@@ -421,6 +425,8 @@ public class OTServiceImpl implements OTService {
         // P-00: plantillas de impresión
         ot.setTipoMantenimiento(request.getTipoMantenimiento());
         ot.setModalidadMantenimiento(request.getModalidadMantenimiento());
+        ot.setTipoAeronave(request.getTipoAeronave());
+        ot.setTipoAeronaveOtro(request.getTipoAeronaveOtro());
         ot.setComentarioTaller(request.getComentarioTaller());
         ot.setComponenteDescripcion(request.getComponenteDescripcion());
         ot.setComponenteNumeroParte(request.getComponenteNumeroParte());
